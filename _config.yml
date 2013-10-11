@@ -1,0 +1,10 @@
+safe: true
+lsi: false
+source: .
+destination: ./_site
+markdown: rdiscount
+pygments: true
+
+name: Ed Lim
+twitter: limed
+github: limed
