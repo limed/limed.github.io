@@ -134,7 +134,3 @@ header .logo a:visited {
 *:first-child+html .group {
   min-height: 1px;
 }
-
-.header-main {
-    text-align:center
-}
