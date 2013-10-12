@@ -5,6 +5,7 @@ destination: ./_site
 markdown: rdiscount
 pygments: true
 
-name: limed's blog
+name: "limed's blog"
+author: Ed Lim
 twitter: limed
 github: limed
