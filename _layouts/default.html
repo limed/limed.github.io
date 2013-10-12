@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title> limed's blog </title>
+    <title> {{ page.title }} </title>
     <link rel="stylesheet" media="screen" href="/stylesheets/master.css"/>
+
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
   </head>
   <body>
-    <div id="container">
-      <header class="group">
-        <h1 class="logo"><a href="/">Hello World Blog.</a></h1>
-      </header>
-      <div id="content">
-        {{ content }}
-      </div>
-    </div>
+        <div id="container">
+            <header class="group">
+                <h1 class="logo"><a href="/">{{ site.name }}</a></h1>
+            </header>
+        <div id="content">
+            {{ content }}
+        </div>
+        </div>
   </body>
 </html>
