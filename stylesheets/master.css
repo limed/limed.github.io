@@ -69,10 +69,11 @@ header {
 }
 
 header .logo {
-  float: left;
+  /*float: left; */
   font-size: 2em;
   margin: 0;
-  text-transform: uppercase;
+  text-transform: lowercase;
+  text-align: center;
 }
 
 header .logo a:link,
