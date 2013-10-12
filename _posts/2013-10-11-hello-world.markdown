@@ -1,5 +1,6 @@
 ---
 layout: post
+title: "Hello world!"
 ---
-First post
+This is a first post made after migrating from wordpress to jekyll
 
