@@ -1,0 +1,64 @@
+---
+layout: post
+title: "Setting up GPG agent"
+---
+
+My passwords here at Mozilla are basically pretty long and I use mutt as a mailer, so it gets rather tedious whenever I send out an
+email to type in my password each time. So I spent some time setting up gpg-agent on my system and gpg encrypted a file that contains my password.
+This blog post will document the method used to achieve this setup
+
+### Installing GPG and gpg-agent
+--------------------------------
+Depending on your OS you will need to have *gnupg* and *gpg-agent* installed, I'm running Mac OSX so I used homebrew
+
+```
+brew install gnupg
+brew install gpg-agent
+```
+
+### Encrypting password file
+----------------------------
+I created a gpg encrypted password file in my home directory
+
+```
+mkdir -p ${HOME}/.passwd
+echo "My password" | gpg -r <email here> --encrypt > ~/.passwd/mozilla.gpg
+```
+
+### Setting up bash
+-------------------
+Create the a file called *.bash_gpg* in your home directory
+
+```bash
+envfile="${HOME}/.gnupg/gpg-agent.env"
+
+if test -f "$envfile" && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 2) 2>/dev/null; then
+    eval "$(cat "$envfile")"
+else
+    eval "$(gpg-agent --daemon --log-file=~/.gpg/gpg.log --write-env-file "$envfile")"
+fi
+export GPG_AGENT_INFO  # the env file does not contain the export statement
+```
+
+Add the following to your *.bashrc* file
+
+```bash
+GPG_AGENT=$(which gpg-agent)
+GPG_TTY=`tty`
+export GPG_TTY
+
+if [ -f ${GPG_AGENT} ]; then
+    . ~/.bash_gpg
+fi
+```
+
+You can further configure the nature of *gpg-agent* by editing the *~/.gnupg/gpg-agent.conf* file
+
+```bash
+default-cache-ttl 86400
+pinentry-program /usr/local/bin/pinentry
+no-grab
+max-cache-ttl 172800
+```
+
+Thats just an example of what I have, of course you can edit it to suit your needs
