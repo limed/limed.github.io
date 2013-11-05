@@ -11,25 +11,25 @@ This blog post will document the method used to achieve this setup
 --------------------------------
 Depending on your OS you will need to have *gnupg* and *gpg-agent* installed, I'm running Mac OSX so I used homebrew
 
-```
+{% highlight bash %}
 brew install gnupg
 brew install gpg-agent
-```
+{% endhighlight %}
 
 ### Encrypting password file
 ----------------------------
 I created a gpg encrypted password file in my home directory
 
-```
+{% highlight bash %}
 mkdir -p ${HOME}/.passwd
 echo "My password" | gpg -r <email here> --encrypt > ~/.passwd/mozilla.gpg
-```
+{% endhighlight %}
 
 ### Setting up bash
 -------------------
 Create the a file called *.bash_gpg* in your home directory
 
-```bash
+{% highlight bash %}
 envfile="${HOME}/.gnupg/gpg-agent.env"
 
 if test -f "$envfile" && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 2) 2>/dev/null; then
@@ -38,11 +38,11 @@ else
     eval "$(gpg-agent --daemon --log-file=~/.gpg/gpg.log --write-env-file "$envfile")"
 fi
 export GPG_AGENT_INFO  # the env file does not contain the export statement
-```
+{% endhighlight %}
 
 Add the following to your *.bashrc* file
 
-```bash
+{% highlight bash %}
 GPG_AGENT=$(which gpg-agent)
 GPG_TTY=`tty`
 export GPG_TTY
@@ -50,15 +50,15 @@ export GPG_TTY
 if [ -f ${GPG_AGENT} ]; then
     . ~/.bash_gpg
 fi
-```
+{% endhighlight %}
 
 You can further configure the nature of *gpg-agent* by editing the *~/.gnupg/gpg-agent.conf* file
 
-```bash
+{% highlight bash %}
 default-cache-ttl 86400
 pinentry-program /usr/local/bin/pinentry
 no-grab
 max-cache-ttl 172800
-```
+{% endhighlight %}
 
 Thats just an example of what I have, of course you can edit it to suit your needs
