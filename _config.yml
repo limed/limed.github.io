@@ -6,6 +6,8 @@ markdown: rdiscount
 pygments: true
 
 name: "limed's blog"
-author: Ed Lim
+description: "Blog documenting random notes of limed"
+url: "http://sudoers.org"
+author: "Ed Lim"
 twitter: limed
 github: limed
